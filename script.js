@@ -5,8 +5,8 @@ console.log(today.format()); //console.log to test return
 //DISPLAY DATE IN HEADER 
 $("#currentDay").text(today.format('dddd, MMMM Do YYYY')); 
 
-//GET CURRENT HOUR FROM MOMENT TIME
-var currentHour = [];
+// //GET CURRENT HOUR FROM MOMENT TIME
+// var currentHour = [];
 
 //FUNCTION TO RETRIEVE ACTIVITIES FROM LOCAL STORAGE
 //creates storage array for events
@@ -58,20 +58,23 @@ eventClass();
 function eventClass() {
     //create variable for input elements
     var eventDisplay = $('input');
-    for (var i=0; i<eventDisplay.length; i++) {
-        eventDisplayId = $(eventDisplay[i]);
+    for (var j=0; j<eventDisplay.length; j++) {
+        eventDisplayId = $(eventDisplay[j]);
         eventDisplayHour = eventDisplayId.data("hour");
-        // console.log(eventDisplayHour); console.log for check
+        // console.log(eventDisplayHour);
     
-    var currentHour = moment().format('ha');
-    console.log(currentHour);
-    var eventHour = moment(eventDisplayHour, ['ha']).format('ha');
-    console.log(eventHour);
+        var currentHour = moment().format('ha');
+        console.log(currentHour);
+        var eventHour = moment(eventDisplayHour, 'ha').format('ha');
+        console.log(eventHour);
 
-    if(eventHour === currentHour) {
-        eventDisplayId.attr("class","present"); 
-    } else if (moment(eventHour).isBefore(currentHour)) {
-        eventDisplayId.attr("class","past");
-    }
+        
+        if(eventHour === currentHour) {
+            eventDisplayId.attr("class","form-control description present"); 
+        } else if (eventHour<currentHour) {
+            eventDisplayId.attr("class","form-control description past");
+        }
+        var bool1 = (eventHour<currentHour);
+        console.log(bool1);
     }
 }
