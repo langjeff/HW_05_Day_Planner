@@ -43,10 +43,11 @@ textarea {
   color: #000000;
   border-top: 1px dashed #000000;
 }
-
+/* modified color here to be black as it was tough to read on background */
 .past {
   background-color: #d3d3d3;
-  color: white;
+  color: black;
+  
 }
 
 .present {
@@ -80,7 +81,7 @@ span {
 button {
   width: 75px;
 }
-/* check with tutor how to size this */
-input {
-  height: 80px;
-}
+/* added impurtant to form-control height to make it be 100% of row height */
+.form-control {
+  height: 100%  !important; 
+} 

@@ -5,10 +5,6 @@ console.log(today.format()); //console.log to test return
 //DISPLAY DATE IN HEADER 
 $("#currentDay").text(today.format('dddd, MMMM Do YYYY')); 
 
-// //GET CURRENT HOUR FROM MOMENT TIME
-// var currentHour = [];
-
-//FUNCTION TO RETRIEVE ACTIVITIES FROM LOCAL STORAGE
 //creates storage array for events
 var plannerEvents = {
     nineAM: "",
@@ -56,25 +52,33 @@ $(document).ready(function() {
 //FUNCTION TO CHECK CURRENT TIME AGAINST ELEMENT TIME AND CHANGE CLASS TO APPLY CORRECT FORMATTING
 eventClass();
 function eventClass() {
-    //create variable for input elements
+    //create array for input elements
     var eventDisplay = $('input');
     for (var j=0; j<eventDisplay.length; j++) {
+        //sets variable for input elements
         eventDisplayId = $(eventDisplay[j]);
+        //sets variable to equal hour of event element
         eventDisplayHour = eventDisplayId.data("hour");
         // console.log(eventDisplayHour);
     
-        var currentHour = moment().format('ha');
-        console.log(currentHour);
-        var eventHour = moment(eventDisplayHour, 'ha').format('ha');
-        console.log(eventHour);
+        // sets variable for current hour to moment
+        var currentHour = moment().valueOf();
+        // console.log(currentHour);
+        // takes eventDisplayHour and converts it to moment
+        var eventHour = moment(eventDisplayHour, 'ha').valueOf();
+        // console.log(eventHour);
 
-        
-        if(eventHour === currentHour) {
+        //had to use this method as comparison as previous method using 'ha' was producing an error on 9am block
+        //worked with my tutor to institute this solution, whihch uses milliseconds to establish current hour. 
+        if((currentHour-eventHour)<3600000 && (currentHour-eventHour)>0) {
             eventDisplayId.attr("class","form-control description present"); 
         } else if (eventHour<currentHour) {
             eventDisplayId.attr("class","form-control description past");
         }
-        var bool1 = (eventHour<currentHour);
-        console.log(bool1);
+        //testing block
+        // var milliseconds = currentHour-eventHour;
+        // console.log(milliseconds);
+        // var bool1 = (eventHour<currentHour);
+        // console.log(bool1);
     }
 }
